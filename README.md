@@ -18,6 +18,10 @@ If a suspicious uptime is detected, an email alert will be sent to the admin.
 The project is not a final work, its just a university project.
 
 Future improvements:
+
 Implement AI for better log customization and noise reduction
+
 Connect the server with a database that is constantly getting updated to prevent any new internal threats
+
 Better UI/UX design and more
+
